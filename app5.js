@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const {MongoClient} =require('mongodb');
+const {MongoClient,ObjectId} =require('mongodb');
 
 const url = "mongodb://localhost:27017";
 
@@ -25,14 +25,16 @@ app.get("/", function(req, res) {
 });
 
 app.get('/licorne/:id', function (req, res) {
-    let name = (req.params.id)
     async function run() {
         try {
     
           await client.connect();
-          let cols = await  client.db("unicorns").collection('unicorns').find({name:name}).toArray()
+          const dbase = client.db("unicorns")
+          let objid = new ObjectId(req.params.id)
+        //   console.log(objid)
+          let cols = await dbase.collection('unicorns').findOne({_id:objid})
           console.log(cols)
-          res.json(cols[0])
+          res.json(cols)
         } finally {
             
           await client.close();

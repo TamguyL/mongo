@@ -12,8 +12,8 @@
         <h2>Licornes : </h2>
         <div class="ajout">
             <% resultat.forEach( (r)=> { %>
-                <input type="submit" class="licorne" name="<%= r.name %>" value="<%= r.name %>">
-                <div id="<%= r._id %>"></div>
+                <input type="submit" class="licorne" id="<%= r._id %>" value="<%= r.name %>">
+                <div id="info<%= r._id %>"></div>
             <% }); %>
         </div>
     </section>
@@ -22,8 +22,9 @@
         let licorne = document.getElementsByClassName("licorne");
         for(let l of licorne){
             l.addEventListener("click", (event) =>{
-                axios.get("/licorne/"+l.getAttribute('name')).then(response => {
-                    document.getElementById(response.data._id).innerHTML = '<p> Poids : '+ response.data.weight + ' kg <br> Genre : '+ response.data.gender +'</p>'
+                axios.get("/licorne/"+l.getAttribute('id')).then(response => {
+                    console.log(response.data)
+                    document.getElementById('info'+response.data._id).innerHTML += '<p> Poids : '+ response.data.weight + ' kg <br> Genre : '+ response.data.gender +'</p>'
                     })       
             })
         }
