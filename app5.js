@@ -33,7 +33,6 @@ app.get('/licorne/:id', function (req, res) {
           let objid = new ObjectId(req.params.id)
         //   console.log(objid)
           let cols = await dbase.collection('unicorns').findOne({_id:objid})
-          console.log(cols)
           res.json(cols)
         } finally {
             

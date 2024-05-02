@@ -23,7 +23,6 @@
         for(let l of licorne){
             l.addEventListener("click", (event) =>{
                 axios.get("/licorne/"+l.getAttribute('id')).then(response => {
-                    console.log(response.data)
                     document.getElementById('info'+response.data._id).innerHTML += '<p> Poids : '+ response.data.weight + ' kg <br> Genre : '+ response.data.gender +'</p>'
                     })       
             })
