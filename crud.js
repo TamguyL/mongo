@@ -54,13 +54,10 @@ app.get("/detail/:id", (req, res) => {
   async function detail() {
     try {
       // Connect the client to the server (optional starting in v4.7)
-      let id = req.params.id
-      console.log(id)
       await client.connect();
-      let detail = await  client.db("pizza").collection('pizza').findOne({_id: id})
-      console.log(detail)
-      // let obj = { pizza: pizza}
-      // res.json(obj)
+      let detail = await  client.db('pizza').collection('pizza').findOne({ '_id': new ObjectId(req.params.id)})
+      let obj = { detail: detail}
+      res.json(obj)
     } finally {
       // Ensures that the client will close when you finish/error
       await client.close();
