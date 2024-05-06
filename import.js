@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
@@ -18,7 +18,7 @@ app.post("/", upload.single('upload'), function (req, res) {
   async function run() {
     try {
       await client.connect();
-      const dbase = client.db("garage")
+      const dbase = client.db(titre)
       let cols = await dbase.collection(titre).insertMany(data)
     } finally {
       await client.close();

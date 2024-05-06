@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <title>Import JSON</title>
+    </head>
+
+    <body>
+        <section>
+            <div>
+                <% pizza.forEach( (p) => { %>
+                    <input type="submit" class="detail" id="<%= p._id %>" value="<%= p.name %>">
+                <% }); %>
+            </div>
+            <div>
+                <input type="submit" id="count" value="count">
+                <div id="countt"></div>
+            </div>
+        </section>   
+        <script>
+
+        // listep.addEventListener("click", (event) =>{
+        //     axios.get("/listep").then(response => {
+        //         document.getElementById("listepiz").innerHTML = '<h3>Liste des pizzas <h3><ul>'
+        //         response.data.pizza.forEach( p =>{
+        //             document.getElementById("listepiz").innerHTML += '<li>'+p._id+'<button id="detail" value="'+p._id+'">'+p.name+'</button></li>'
+        //         });
+        //         document.getElementById("listepiz").innerHTML += '</ul>'
+        //     })
+        // });
+
+        count.addEventListener("click", (event) =>{
+            axios.get("/count").then(response => {
+                document.getElementById("countt").innerHTML = '<h3>'+response.data.count+'<h3>'
+            })
+        });
+
+        let detail = document.getElementsByClassName("detail");
+        for(let d of detail){
+            d.addEventListener("click", (event) =>{
+                axios.get("/detail/"+d.getAttribute('id')).then(response => {
+                    console.log(d.getAttribute('value'));       
+                })
+            })
+        }
+        </script>
+    </body>
+</html>
